@@ -1,0 +1,18 @@
+#validator-output .valid {
+    color: green;
+}
+#validator-output .invalid {
+    color: red;
+}
+.container {
+    justify-content: center;
+   
+  }
+.row{
+    width: 50%;
+}
+
+.button:hover {
+	-webkit-transform: translate(-1px);
+	transform: translateY(-1px);
+}

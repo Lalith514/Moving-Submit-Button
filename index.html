@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='style.css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <style>
+    #btn {
+            position: absolute;
+            transition: .1s;
+            background-color: white;
+            padding: 10px;
+            height: 40px;
+            width: 150px;
+        }
+
+        #submitBtn {
+            position: absolute;
+            transition: .1s;
+            background-color: white;
+            padding: 10px;
+            height: 40px;
+            width: 150px;
+            color: black;
+        }
+  </style>
+
+<div class="content" style="margin-left: 30%; margin-top: 10%;">
+  <div class="row">
+
+    <form action="page2.php" id="myForm1" class="needs-validation" novalidate>
+      <h1 class="text-center">Login Form</h1><hr>
+      <div class="form-group">
+        First Name<input name="myInput" id="fisrtNameId" type="text" class="form-control" pattern="^[a-z]{2,15}$" required autofocus>
+        <div class="valid-feedback">Valid</div>
+        <div class="invalid-feedback">a to z only (2 to 15 long)</div>
+      </div>
+      <div class="form-group">
+        Password<input type="text" id="pwdId" class="form-control" pattern="^[a-z]{2,6}$" required>
+        <div class="valid-feedback">Valid</div>
+        <div class="invalid-feedback">a to z only (2 to 6 long)</div>
+      </div>
+      <div class="form-group">
+        <button id="submitBtn" type="submit" style="display: none;" disabled>Submit</button>
+      </div>
+      <button id="btn">Submit</button>
+    </form>
+    
+
+
+  </div>
+</div>
+  
+  
+
+
+  <script>
+    const button = document.getElementById('btn');
+button.addEventListener('mouseover', function () {
+  var effect=Math.ceil(Math.random() * 90);
+    console.log(effect);
+    button.style.left = `${effect}%`;
+    // button.style.top = `${Math.ceil(Math.random() * 45)}%`;
+});
+button.addEventListener('click', function () {
+    alert('Validate form !')
+})
+</script>
+  <script>
+    $(document).ready(function(){
+      // ----------- Set all elements as INVALID --------------
+      var myInputElements = document.querySelectorAll(".form-control");
+      var i;
+      for (i = 0; i < myInputElements.length; i++) {
+        myInputElements[i].classList.add('is-invalid');
+        myInputElements[i].classList.remove('is-valid');
+      }
+      
+      // ----------------- Validate on submit -----------------
+      let currForm1 = document.getElementById('myForm1');
+      currForm1.addEventListener('submit', function(event) {
+        if (currForm1.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        else {
+          $("#submitBtn").attr("disabled",false);
+          $('#submitBtn').addClass('btn-primary').removeClass('btn-secondary');
+          currForm1.classList.add('was-validated');
+        }
+      }, false);
+      // ----------------- Validate on input -----------------
+      currForm1.querySelectorAll('.form-control').forEach(input => {
+        input.addEventListener(('input'), () => {
+          if (input.checkValidity()) {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+          } else {
+            input.classList.remove('is-valid');
+            input.classList.add('is-invalid');
+          }
+          var is_valid = $('.form-control').length === $('.form-control.is-valid').length;
+          // $("#submitBtn").attr("disabled", !is_valid);
+          if (is_valid) {
+            // alert("form is valid");
+            $("#submitBtn").show();
+            $("#submitBtn").attr("disabled",false);
+            $('#btn').hide();
+            $('#submitBtn').addClass('btn-primary').removeClass('btn-secondary');
+          } else {
+            // alert("invalid");
+            $("#submitBtn").attr("disabled",true);
+            $('#submitBtn').addClass('btn-secondary').removeClass('btn-primary');
+          }
+        });
+      });
+      // ------------------------------------------------------
+    });
+  </script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
